@@ -77,7 +77,7 @@ app.post('/api/account/signup', (req, res, next)=>{
         success: true,
         message:'Signed up'
       });
-  });
+    });
 });
 
 module.exports = app;
