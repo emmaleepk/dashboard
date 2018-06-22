@@ -28,27 +28,21 @@ const User = mongoose.model('User', {
     type: Boolean,
   },
   classTaken: {
-    type: Object,
-    properties:{
-      classType: {
-        type: Array,
-        items:{
+    type: Array,
+    items:{
+      type: Object,
+      properties: {
+        classType: {
           type: String,
           default: ''
-        }
-      },
-      instructor:{
-        type: Array,
-        items:{
-          type: String,
-          default: ''
-        }
-      },
-      date:{
-        type: Array,
-        items:{
-          type: Date,
-          default: Date.now
+        },
+        instructor:{
+            type: String,
+            default: ''
+        },
+        date:{
+            type: Date,
+            default: Date.now
         }
       }
     }
@@ -66,10 +60,12 @@ const typeDefs = `
     email: String!
     password: String!
     isDeleted: Boolean!,
-    classTaken: {[ClassType], [instructor], [date]}
+    classTaken: [Classtaken]
   }
-  type ClassType {
-
+  type ClassTaken {
+    classType: String!
+    instructor: String!
+    date: Date!
   }
   type Mutation {
     createUser(firstName: String!,
