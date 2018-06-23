@@ -1,53 +1,9 @@
+const { models } = require('./config/db');
 const { GraphQLServer } = require('graphql-yoga');
-var mongoose = require('mongoose');
 
+// Config DB
+const db = require('./config/db');
 
-mongoose.connect('mongodb://emmaleepk:EPK123@ds237770.mlab.com:37770/gymdb');
-var db = mongoose.connection;
-
-// User Model
-const User = mongoose.model('User', {
-  firstName: {
-    type: String,
-    default: ''
-  },
-  lastName: {
-    type: String,
-    default: ''
-  },
-  email: {
-    type: String,
-    default: '',
-    lowercase: true
-  },
-  password: {
-    type: String,
-    default:''
-  },
-  isDeleted: {
-    type: Boolean,
-  },
-  classTaken: {
-    type: Array,
-    items:{
-      type: Object,
-      properties: {
-        classType: {
-          type: String,
-          default: ''
-        },
-        instructor:{
-            type: String,
-            default: ''
-        },
-        date:{
-            type: Date,
-            default: Date.now
-        }
-      }
-    }
-  }
-});
 
 const typeDefs = `
   type Query {
@@ -93,7 +49,4 @@ const resolvers = {
 
 const server = new GraphQLServer({ typeDefs, resolvers })
 
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  server.start(() => console.log('Server is running on localhost:4000'));
-});
+server.start(() => console.log('Server is running on localhost:4000'));
