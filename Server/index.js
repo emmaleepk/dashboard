@@ -53,6 +53,14 @@ const typeDefs = `
   type Query {
     hello(name: String): String!
   }
+  type Date{
+    created: Date
+  }
+  type ClassTaken {
+    classType: String!
+    instructor: String!
+    date: Date!
+  }
   type User {
     id: ID!
     firstName: String!
@@ -60,12 +68,7 @@ const typeDefs = `
     email: String!
     password: String!
     isDeleted: Boolean!,
-    classTaken: [Classtaken]
-  }
-  type ClassTaken {
-    classType: String!
-    instructor: String!
-    date: Date!
+    classTaken: [ClassTaken]
   }
   type Mutation {
     createUser(firstName: String!,
@@ -89,6 +92,7 @@ const resolvers = {
 };
 
 const server = new GraphQLServer({ typeDefs, resolvers })
+
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   server.start(() => console.log('Server is running on localhost:4000'));
