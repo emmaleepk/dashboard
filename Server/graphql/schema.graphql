@@ -1,0 +1,23 @@
+  type Query {
+    hello(name: String): String!
+  }
+  type ClassTaken {
+    classType: String!
+    instructor: String!
+    date: String!
+  }
+  type User {
+    id: ID!
+    firstName: String!
+    lastName: String!
+    email: String!
+    password: String!
+    isDeleted: Boolean!,
+    classTaken: [ClassTaken]
+  }
+  type Mutation {
+    createUser(firstName: String!,
+               lastName: String!,
+               email: String!,
+               password: String!): User
+  }
